@@ -11,13 +11,14 @@ import (
 var domainsToAddresses map[string]string = map[string]string{
 	"google.com.": "1.2.3.4",
 	"jameshfisher.com.": "104.198.14.52",
+	"testing.0xrishabh.dev.": "52.188.53.18"
 }
 
 type handler struct{}
 func (this *handler) ServeDNS(w dns.ResponseWriter, r *dns.Msg) {
 	msg := dns.Msg{}
 	msg.SetReply(r)
-	fmt.Println("DNS", w.RemoteAddr().String(), "")
+	fmt.Println("DNS:  ", w.RemoteAddr().String())
 	switch r.Question[0].Qtype {
 	case dns.TypeA:
 		msg.Authoritative = true
@@ -34,7 +35,7 @@ func (this *handler) ServeDNS(w dns.ResponseWriter, r *dns.Msg) {
 }
 
 func Dns_run() {
-	srv := &dns.Server{Addr: ":" + strconv.Itoa(5000), Net: "udp"}
+	srv := &dns.Server{Addr: ":" + strconv.Itoa(53), Net: "udp"}
 	srv.Handler = &handler{}
 	if err := srv.ListenAndServe(); err != nil {
 		log.Fatalf("Failed to set udp listener %s\n", err.Error())

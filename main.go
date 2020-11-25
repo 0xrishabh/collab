@@ -1,7 +1,7 @@
 package main
 
 import (
-	"my/collaborator/service"
+	"github.com/0xishabh/collab/service"
 	_ "fmt"
 )
 

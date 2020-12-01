@@ -1,13 +1,32 @@
 package main
 
 import (
-	"github.com/0xishabh/collab/service"
-	_ "fmt"
+	"fmt"
+	"sync"
+	"my/collab/service"
+	"github.com/alexflint/go-arg"
 )
 
 
 
 func main(){
-	go func(){service.Http_run()}()
-	service.Dns_run()
+
+	var wg sync.WaitGroup
+
+	var args struct {
+		Domain string
+		Ipv4 string
+	}
+
+	arg.MustParse(&args)
+	fmt.Println(args.Domain)
+	
+
+	wg.Add(2)
+
+	go service.Http_run(args.Domain)
+	go service.Dns_run(args.Ipv4)
+
+
+	wg.Wait()
 }

@@ -53,7 +53,7 @@ func main() {
 	tlsConfig := certManager.TLSConfig()
 	tlsConfig.GetCertificate = getSelfSignedOrLetsEncryptCert(&certManager)
 	server := http.Server{
-		Addr:      ":6000",
+		Addr:      ":443",
 		Handler:   mux,
 		TLSConfig: tlsConfig,
 	}

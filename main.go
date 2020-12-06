@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"sync"
-	"github.com/0xrishabh/collab/service"
+	"my/collab/service"
 	"github.com/alexflint/go-arg"
 )
 

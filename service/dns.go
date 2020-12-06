@@ -11,7 +11,7 @@ import (
 var yellow = color.New(color.FgYellow).SprintFunc()
 var red = color.New(color.FgRed).SprintFunc()
 
-type Handler struct{
+type Handler struct {
 	Ipv4 string
 }
 
@@ -35,7 +35,7 @@ func (this Handler) ServeDNS(w dns.ResponseWriter, r *dns.Msg) {
 }
 
 func Dns_run(Ipv4 string) {
-	srv := &dns.Server{Addr: ":5000", Net: "udp"}
+	srv := &dns.Server{Addr: ":53", Net: "udp"}
 	srv.Handler = Handler{Ipv4}
 
 	if err := srv.ListenAndServe(); err != nil {

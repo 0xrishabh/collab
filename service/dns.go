@@ -5,16 +5,22 @@ import (
 	"log"
 	"fmt"
 	"github.com/miekg/dns"
+	"github.com/fatih/color"
 )
 
+var yellow = color.New(color.FgYellow).SprintFunc()
+var red = color.New(color.FgRed).SprintFunc()
 
 type Handler struct{
 	Ipv4 string
 }
+
+
 func (this Handler) ServeDNS(w dns.ResponseWriter, r *dns.Msg) {
 	msg := dns.Msg{}
 	msg.SetReply(r)
-	fmt.Println("DNS:  ", w.RemoteAddr().String())
+
+	fmt.Println("DNS for ",red(msg.Question[0].Name), " from ", yellow(w.RemoteAddr().String()))
 	switch r.Question[0].Qtype {
 	case dns.TypeA:
 		msg.Authoritative = true

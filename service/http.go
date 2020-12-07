@@ -6,9 +6,10 @@ import (
 	"fmt"
 	"net/http"
 	"path/filepath"
-	"encoding/json"
+	_ "encoding/json"
 
-	"github.com/TylerBrock/colorjson"
+	_ "github.com/TylerBrock/colorjson"
+	"github.com/logrusorgru/aurora"
 	"golang.org/x/crypto/acme/autocert"
 
 )
@@ -34,14 +35,13 @@ func getSelfSignedOrLetsEncryptCert(certManager *autocert.Manager) func(hello *t
 }
 
 func Http_run(domain string) {
-	var obj map[string]interface{}
+
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, "Hello HTTP/2")
-		fmt.Println(r.Header)
-		json.Unmarshal(r.Header, &obj)
-		s, _ := colorjson.Marshal(obj)
-		fmt.Println(string(s))
+		for u,v := range r.Header{
+			fmt.Println("%s: %s", aurora.Green(u),v)
+		}
 	
 	})
 

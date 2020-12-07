@@ -26,10 +26,8 @@ func getSelfSignedOrLetsEncryptCert(certManager *autocert.Manager) func(hello *t
 		crtFile := filepath.Join(string(dirCache), hello.ServerName+".crt")
 		certificate, err := tls.LoadX509KeyPair(crtFile, keyFile)
 		if err != nil {
-			fmt.Printf("%s\nFalling back to Letsencrypt\n", err)
 			return certManager.GetCertificate(hello)
 		}
-		fmt.Println("Loaded selfsigned certificate.")
 		return &certificate, err
 	}
 }
@@ -40,7 +38,7 @@ func Http_run(domain string) {
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, "Hello HTTP/2")
 		for u,v := range r.Header{
-			fmt.Println("%s: %s", aurora.Green(u),v)
+			fmt.Print("%s: %s\n", aurora.Green(u),aurora.Blue(v))
 		}
 	
 	})

@@ -37,6 +37,7 @@ func Http_run(domain string) {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, "Hello HTTP/2")
+		fmt.Printf("%s %s\n", aurora.Cyan("HTTP"), aurora.Yellow(r.URL))
 		for u,v := range r.Header{
 			fmt.Printf("%s: %s\n", aurora.Green(u),aurora.Blue(v))
 		}

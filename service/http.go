@@ -39,7 +39,7 @@ func Http_run(domain string) {
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, "Hello HTTP/2")
 		fmt.Println(r.Header)
-		json.Unmarshal([]byte(r.Header), &obj)
+		json.Unmarshal(r.Header, &obj)
 		s, _ := colorjson.Marshal(obj)
 		fmt.Println(string(s))
 	
